@@ -4,9 +4,12 @@
   "description": "reviewing express",
   "main": "app.js",
   "scripts": {
-    "test": "",
+    "start": "node app.js",
+    "test": "cy:run",
     "run": "node app.js",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "cy:run": "node_modules/.bin/cypress run",
+    "cy:run-record" : "node_modules/.bin/cypress run --record --key 2926398f-5e9c-4971-9600-eac71ec79048"
   },
   "author": "Karl Koerner",
   "license": "ISC",
