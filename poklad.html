@@ -35,7 +35,7 @@
 <body>
 <h3>Ahoj <span id="username"></span>!</h3>
 <img src="/img/banana.gif" /><br/>
-<a href="/logout">Logout</a>
+<a href="javascript:logout()">Logout</a>
 <h3>Messsages</h3>
 <div id="posts">
 </div>
@@ -72,7 +72,43 @@
 
         return false;
     }
+
+    function logout(){
+        sessionStorage.clear();
+        localStorage.clear();
+        window.location.replace('/logout')
+    }
+
     document.getElementById("username").innerText = checkUsername();
+
+    function init(){
+
+        var req = new XMLHttpRequest();
+
+        req.onreadystatechange = function(){
+
+            if(req.readyState === 4 && req.status === 200){
+                var IDKey = req.getResponseHeader("IDKEY")
+                var sessionKey = req.getResponseHeader("SESSION_KEY")
+
+                console.log("DEBUG IDKey " + IDKey)
+                console.log("DEBUG SessionKEY " + sessionKey)
+
+                localStorage.setItem("id-key", IDKey)
+                sessionStorage.setItem("session-key", sessionKey)
+            }
+
+        }
+
+        req.open("POST", "/treasure")
+        req.setRequestHeader("Content-Type","text/plain")
+        req.send("")
+
+       // localStorage.setItem("idKey", )
+       // sessionStorage.setItem("sessionKey")
+    }
+
+    window.onload = init()
 </script>
 
 </body>
