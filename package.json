@@ -9,7 +9,7 @@
     "run": "node app.js",
     "cypress:open": "cypress open",
     "cy:run": "node_modules/.bin/cypress run",
-    "cy:run-record" : "node_modules/.bin/cypress run --record --key 2926398f-5e9c-4971-9600-eac71ec79048"
+    "cy:run-record": "node_modules/.bin/cypress run --record --key 2926398f-5e9c-4971-9600-eac71ec79048"
   },
   "author": "Karl Koerner",
   "license": "ISC",
@@ -19,9 +19,12 @@
   },
   "devDependencies": {
     "cypress": "^3.1.5",
+    "express-session": "^1.15.6",
     "junit-merge": "^2.0.0",
     "mocha": "^5.2.0",
     "mochawesome": "^3.1.1",
-    "mochawesome-report-generator": "^3.1.5"
+    "mochawesome-report-generator": "^3.1.5",
+    "parseurl": "^1.3.2",
+    "typescript": "^3.3.3333"
   }
 }

@@ -1,5 +1,7 @@
 const express = require('express')
 var bodyParser = require('body-parser')
+var parseurl = require('parseurl')
+var session = require('express-session')
 const app = express()
 var path = require('path')
 
@@ -10,6 +12,38 @@ passwords['krtek'] = "noname"
 app.use(express.static('.'))
 //app.use('/img', express.static(__dirname + '/img'));
 app.use(bodyParser.json());
+
+app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+}))
+
+app.use(function(req,res, next){
+    if (!req.session.views) {
+        req.session.views = {}
+    }
+
+    // get the url pathname
+    var pathname = parseurl(req).pathname
+
+    // count the views
+    req.session.views[pathname] = (req.session.views[pathname] || 0) + 1
+
+    next()
+})
+
+
+app.get('/foo', function(req,res, next){
+    res.send('you viewed this page ' + req.session.views['/foo'] + ' times')
+})
+
+app.get('/bar', function(req,res, next){
+    res.send('you viewed this page ' + req.session.views['/bar'] + ' times')
+})
+
+
 
 app.get('/', function(req,res){
     console.log("cookies: " + req.get('cookie'))
@@ -99,6 +133,7 @@ app.post('/login', function(req, res){
         console.log("DEBUG Calling Success callback")
 
         res.cookie('id_token', 'OK', {expires: new Date(Date.now() + 9000000)})
+        res.cookie('session', '123abc', {httpOnly: true})
         res.redirect('/treasure')
     },
         function(){

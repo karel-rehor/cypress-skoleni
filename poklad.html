@@ -34,6 +34,7 @@
 </head>
 <body>
 <h3>Ahoj <span id="username"></span>!</h3>
+<p id="test-area"></p>
 <img src="/img/banana.gif" /><br/>
 <a href="javascript:logout()">Logout</a>
 <h3>Messsages</h3>
@@ -96,6 +97,8 @@
 
                 localStorage.setItem("id-key", IDKey)
                 sessionStorage.setItem("session-key", sessionKey)
+
+                document.getElementById('test-area').appendChild(document.createTextNode(localStorage.getItem("id-key")))
             }
 
         }

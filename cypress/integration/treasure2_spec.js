@@ -14,8 +14,19 @@ describe('treasure2 spec', function(){
 
             cy.contains("username")
 
+            console.log(localStorage.getItem("id-key"))
+            console.log(sessionStorage.getItem("session-key"))
+
+            expect(sessionStorage.getItem('session-key')).to.contain("Clef");
+//            expect(localStorage.getItem('id-key')).to.contain("Klic");
+            cy.get("p#test-area").contains("KlicTotoznosti")
+
+//            expect(localStorage.getItem('id-key')).to.eq('KlicTotoznosti')
+//              expect(sessionStorage.getItem('session-key')).to.eq('ClefSeance')
+
 
         })
+
 
         //console.log("DEBUG authCookie " + JSON.stringify(authCookie))
         //cy.setCookie('id_token', 'OK')
@@ -30,9 +41,17 @@ describe('treasure2 spec', function(){
 
         cy.get('p.message').should(($e) => {
             expect($e.first()).to.contain('Dread natty dread...')
+
         })
 
     })
+
+    it('preserves storage items', function(){
+
+        expect(localStorage.getItem('id-key')).to.eq('KlicTotoznosti')
+        expect(sessionStorage.getItem('session-key')).to.eq('ClefSeance')
+
+        })
 
     it("fails on purpose", function(){
         expect(true).to.equal(false)
